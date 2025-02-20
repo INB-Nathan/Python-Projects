@@ -14,53 +14,95 @@
 # [R] - Remainder (the second number or denominator must not be equal to zero)
 # [F] - Summation (the two numbers are the limits and it must be the second number must be greater than the first number, if the input is 4 and 8 the sum must be 4 + 5 + 6 + 7 + 8).
 
-def userMenu():
-    ''' This is the user menu that will be displaying when the program is first run, and will be looped upon completion of a function. '''
-    choice = "X"
-    while choice != "D" or choice != "E" or choice != "R" or choice != "F" or choice != "G":
-        print(("=" * 20) +" USER MENU " + ("=" * 20))
-        print("%0s %5s" % ("[D].","Divide"))
-        print("%0s %5s" % ("[E].","Exponentiation"))
-        print("%0s %5s" % ("[R].","Remainder"))
-        print("%0s %5s" % ("[F].","Summation"))
-        print("%0s %5s" % ("[G].","Exit"))
-        print("=" * 51)
-        choice = input("Enter the function to be used: ")
-        choice.upper()
-        if choice != "D" or choice != "E" or choice != "R" or choice != "F" or choice != "G":
-            input("You did not input a valid key, press a key to return...") 
-    if choice == "G":
-        print("Exiting the program...")
-    elif choice == "D":
-        divideFunc()
-    elif choice == "E":
-        exponentiationFunc()
-    elif choice == "R":
-        remainderFunc()
-    elif choice == "F":
-        summationFunc()
+def getInteger(prompt):
+    """Optimized get integer so that i don't need to duplicate variable-name = int(input("string"))"""
+    # 
+    while True:
+        try:
+            return int(input(prompt))
+        except ValueError:
+            print("Invalid integer. Please enter a valid number.")
+            continue
 
+def divideFunc():
+    """Performs division with validation for non-zero denominator."""
+    numerator = getInteger("Enter the numerator: ")
+    denominator = getInteger("Enter the denominator: ")
     
-        
-def divideFunc(userChoice):
-    ''' This function will divide the second number or denominator must not be equal to zero '''
+    if denominator == 0:
+        print("Error: Denominator cannot be zero.")
     try:
-        firstNum = int(input("Enter the first number or numerator: "))
-        secondNum = int(input("Enter the second number or numerator: "))
-    except :
+        result = numerator / denominator
+        print(result,4)
+    except Exception as e:
+        print(f"Error during division: {e}")
 
-    finally:
+def exponentiationFunc():
+    """Calculates base raised to the exponent with additional validation."""
+    base = getInteger("Enter the base: ")
+    exponent = getInteger("Enter the exponent: ")
+    
+    try:
+        result = base ** exponent
+        print(result)
+    except Exception as e:
+        print(f"Error during exponentiation: {e}")
+
+def remainderFunc():
+    """Finds remainder with validation for non-zero divisor."""
+    num = getInteger("Enter the number: ")
+    divisor = getInteger("Enter the divisor: ")
+    
+    if divisor == 0:
+        print("Error: Divisor cannot be zero.")
+    try:
+        print(num % divisor)
+    except Exception as e:
+        print(f"Error during remainder calculation: {e}")
+
+def summationFunc():
+    """Sums numbers from start to end (inclusive) with improved range validation."""
+    start = getInteger("Enter the start number: ")
+    end = getInteger("Enter the end number: ")
+    
+    if end < start:
+        print("Error: End must be greater than or equal to start.")
+    try:
+        # Add warning for large ranges
+        if end - start > 1000000:
+            print("Warning: Large range might take some time to compute.")
+        print(sum(range(start, end + 1)))
+    except Exception as e:
+        print(f"Error during summation: {e}")
+
+def userMenu():
+    """Displays menu and handles user choices with improved validation and formatting."""
+    menu_options = {
+        'D': ('Divide', divideFunc),
+        'E': ('Exponentiation', exponentiationFunc),
+        'R': ('Remainder', remainderFunc),
+        'F': ('Summation', summationFunc),
+        'G': ('Exit', None)
+    }
+    
+    while True:
+        print("\n" + "=" * 20 + " USER MENU " + "=" * 20)
+        for key in ['D', 'E', 'R', 'F', 'G']:
+            print(f"[{key}] {menu_options[key][0]}")
+        print("=" * 51)
         
-
-
-def exponentiationFunc(userChoice):
-    ''' This function will exponentiatiate the user value to the asked value. '''
-
-def remainderFunc(userChoice):
-    ''' This function will take two numbers and get the remainder. The second number or denominator must not be equal to zero '''
-
-def summationFunc(userChoice):
-    ''' This function will get the range of two numbers and plus each value in that range. the two numbers are the limits and it must be the second number must be greater than the first number, if the input is 4 and 8 the sum must be 4 + 5 + 6 + 7 + 8  '''
-
-
-userMenu()
+        choice = input("Enter your choice: ").strip().upper()
+        
+        if choice == 'G':
+            print("Exiting the program. Goodbye!")
+            break
+        if choice in menu_options:
+            func = menu_options[choice][1]
+            if func:
+                result = func()
+                if result is not None:
+                    print(f"\nResult: {result}")
+        else:
+            print("\nInvalid choice. Please select a valid option.")
+        
+        input("\nPress Enter to continue...")
