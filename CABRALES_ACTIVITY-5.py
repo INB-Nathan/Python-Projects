@@ -14,19 +14,23 @@
 # [R] - Remainder (the second number or denominator must not be equal to zero)
 # [F] - Summation (the two numbers are the limits and it must be the second number must be greater than the first number, if the input is 4 and 8 the sum must be 4 + 5 + 6 + 7 + 8).
 
-def getInteger(prompt):
-    """Optimized get integer so that i don't need to duplicate variableName = int(input("string"))"""
+def divideFunc():
+    """Performs division with validation for non-zero denominator."""
     while True:
         try:
-            return int(input(prompt))
+            numerator = int(input("Enter the numerator: "))
+            break
         except ValueError:
             print("Invalid integer. Please enter a valid number.")
             continue
-
-def divideFunc():
-    """Performs division with validation for non-zero denominator."""
-    numerator = getInteger("Enter the numerator: ")
-    denominator = getInteger("Enter the denominator: ")
+            
+    while True:
+        try:
+            denominator = int(input("Enter the denominator: "))
+            break
+        except ValueError:
+            print("Invalid integer. Please enter a valid number.")
+            continue
     
     if denominator == 0:
         print("Error: Denominator cannot be zero.")
@@ -38,19 +42,52 @@ def divideFunc():
 
 def exponentiationFunc():
     """Calculates base raised to the exponent with additional validation."""
-    base = getInteger("Enter the base: ")
-    exponent = getInteger("Enter the exponent: ")
+    while True:
+        try:
+            base = int(input("Enter the base: "))
+            break
+        except ValueError:
+            print("Invalid integer. Please enter a valid number.")
+            continue
+            
+    while True:
+        try:
+            exponent = int(input("Enter the exponent: "))
+            break
+        except ValueError:
+            print("Invalid integer. Please enter a valid number.")
+            continue
     
     try:
-        result = base ** exponent
-        print(f"The exponentiation of {base} and {exponent} is: {result}")
+        if exponent > 1000:
+            print("Warning: Large exponent might cause overflow.")
+        
+        result = (base ** exponent)
+        
+        if abs(result) > 1e6:
+            print(f"The exponentiation of {base} and {exponent} is: {result:e}")
+        else:
+            print(f"The exponentiation of {base} and {exponent} is: {result}")
     except Exception as e:
         print(f"Error during exponentiation: {e}")
 
 def remainderFunc():
     """Finds remainder with validation for non-zero divisor."""
-    num = getInteger("Enter the number: ")
-    divisor = getInteger("Enter the divisor: ")
+    while True:
+        try:
+            num = int(input("Enter the number: "))
+            break
+        except ValueError:
+            print("Invalid integer. Please enter a valid number.")
+            continue
+            
+    while True:
+        try:
+            divisor = int(input("Enter the divisor: "))
+            break
+        except ValueError:
+            print("Invalid integer. Please enter a valid number.")
+            continue
     
     if divisor == 0:
         print("Error: Divisor cannot be zero.")
@@ -61,8 +98,21 @@ def remainderFunc():
 
 def summationFunc():
     """Sums numbers from start to end (inclusive) with improved range validation."""
-    start = getInteger("Enter the start number: ")
-    end = getInteger("Enter the end number: ")
+    while True:
+        try:
+            start = int(input("Enter the start number: "))
+            break
+        except ValueError:
+            print("Invalid integer. Please enter a valid number.")
+            continue
+            
+    while True:
+        try:
+            end = int(input("Enter the end number: "))
+            break
+        except ValueError:
+            print("Invalid integer. Please enter a valid number.")
+            continue
     
     if end < start:
         print("Error: End must be greater than or equal to start.")
@@ -97,9 +147,7 @@ def userMenu():
         if choice in menu_options:
             func = menu_options[choice][1]
             if func:
-                result = func()
-                if result is not None:
-                    print(f"\nResult: {result}")
+                func()
         else:
             print("\nInvalid choice. Please select a valid option.")
         
