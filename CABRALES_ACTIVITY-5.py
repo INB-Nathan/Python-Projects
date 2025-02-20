@@ -32,7 +32,7 @@ def divideFunc():
         print("Error: Denominator cannot be zero.")
     try:
         result = numerator / denominator
-        print(result,4)
+        print("The quotient of {:} and {:} is: {:.2f}".format(numerator,denominator,result))
     except Exception as e:
         print(f"Error during division: {e}")
 
@@ -43,7 +43,7 @@ def exponentiationFunc():
     
     try:
         result = base ** exponent
-        print(result)
+        print(f"The exponentiation of {base} and {exponent} is: {result}")
     except Exception as e:
         print(f"Error during exponentiation: {e}")
 
@@ -55,7 +55,7 @@ def remainderFunc():
     if divisor == 0:
         print("Error: Divisor cannot be zero.")
     try:
-        print(num % divisor)
+        print(f"The divisor of {num} and {divisor} is: {num % divisor}")
     except Exception as e:
         print(f"Error during remainder calculation: {e}")
 
@@ -69,7 +69,7 @@ def summationFunc():
     try:
         n = end - start + 1
         total = n * (start + end) // 2
-        print(total)
+        print(f"The summation of {start} and {end} is: {total}")
     except Exception as e:
         print(f"Error during summation: {e}")
 
