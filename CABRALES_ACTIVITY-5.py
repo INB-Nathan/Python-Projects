@@ -15,8 +15,7 @@
 # [F] - Summation (the two numbers are the limits and it must be the second number must be greater than the first number, if the input is 4 and 8 the sum must be 4 + 5 + 6 + 7 + 8).
 
 def getInteger(prompt):
-    """Optimized get integer so that i don't need to duplicate variable-name = int(input("string"))"""
-    # 
+    """Optimized get integer so that i don't need to duplicate variableName = int(input("string"))"""
     while True:
         try:
             return int(input(prompt))
@@ -68,10 +67,9 @@ def summationFunc():
     if end < start:
         print("Error: End must be greater than or equal to start.")
     try:
-        # Add warning for large ranges
-        if end - start > 1000000:
-            print("Warning: Large range might take some time to compute.")
-        print(sum(range(start, end + 1)))
+        n = end - start + 1
+        total = n * (start + end) // 2
+        print(total)
     except Exception as e:
         print(f"Error during summation: {e}")
 
@@ -106,3 +104,5 @@ def userMenu():
             print("\nInvalid choice. Please select a valid option.")
         
         input("\nPress Enter to continue...")
+
+userMenu()
